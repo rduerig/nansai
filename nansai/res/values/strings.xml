@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Nansai</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="button_choosePerson">Person wählen</string>
+    <string name="title_activity_persons">Nansai - Personen</string>
+    <string name="text_result">Die gewählte Person ist jetzt:</string>
+    <string name="pick_date">Datum wählen</string>
 
 </resources>

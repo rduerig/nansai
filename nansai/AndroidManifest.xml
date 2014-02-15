@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.github.nansai.PersonsActivity"
+            android:label="@string/title_activity_persons"
+            android:parentActivityName="com.github.nansai.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.nansai.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
