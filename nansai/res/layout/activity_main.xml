@@ -16,14 +16,26 @@
         android:onClick="onPersonChooseClick"
         android:text="@string/button_choosePerson" />
 
-    <TextView
-        android:id="@+id/textViewDate"
+<!--     <TextView -->
+<!--         android:id="@+id/textViewDate" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:clickable="true" -->
+<!--      android:onClick="showDatePickerDialog" -->
+<!--      android:text="@string/pick_date" -->
+<!--         android:textAppearance="?android:attr/textAppearanceLarge" /> -->
+
+    <DatePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/buttonCompute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-     android:onClick="showDatePickerDialog"
-     android:text="@string/pick_date"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:onClick="onComputeClick"
+        android:text="@string/button_compute" />
     
     <TextView
         android:id="@+id/textView1"
@@ -31,5 +43,11 @@
         android:layout_height="wrap_content"
         android:text="@string/text_result" />
 
+    <TextView
+        android:id="@+id/textViewComputed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_pleaseClickCompute"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

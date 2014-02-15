@@ -7,5 +7,7 @@
     <string name="title_activity_persons">Nansai - Personen</string>
     <string name="text_result">Die gewählte Person ist jetzt:</string>
     <string name="pick_date">Datum wählen</string>
+    <string name="button_compute">Berechnen</string>
+    <string name="text_pleaseClickCompute">Bitte Berechnen drücken.</string>
 
 </resources>
