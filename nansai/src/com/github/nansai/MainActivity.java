@@ -40,6 +40,8 @@ public class MainActivity extends Activity {
 	// newFragment.show(getFragmentManager(), "datePicker");
 	// }
 
+	// ********************************************************************************
+
 	private OnComputeClickHandler getOnComputeClickHandler() {
 		final OnComputeClickHandler onComputeClick = new OnComputeClickHandler(
 				this);

@@ -2,6 +2,7 @@ package com.github.nansai.provider;
 
 import android.app.Activity;
 import android.widget.DatePicker;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.nansai.R;
@@ -10,6 +11,7 @@ import com.github.nansai.R;
 public class ViewProvider {
 	public static int DATE_DIFFERENCE_RESULT = R.id.textViewComputed;
 	public static int DATE_PICKER = R.id.datePicker1;
+	public static int SCROLL_VIEW = R.id.scrollView1;
 
 	public ViewProvider() {
 	}
@@ -24,6 +26,11 @@ public class ViewProvider {
 		final DatePicker datePicker = (DatePicker) act
 				.findViewById(DATE_PICKER);
 		return datePicker;
+	}
+
+	public ScrollView getScrollView(final Activity act) {
+		final ScrollView view = (ScrollView) act.findViewById(SCROLL_VIEW);
+		return view;
 	}
 
 }

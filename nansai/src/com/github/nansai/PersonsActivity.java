@@ -2,14 +2,14 @@ package com.github.nansai;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.github.nansai.util.ActivityConstants;
+import com.github.nansai.provider.PersonProvider;
 
 public class PersonsActivity extends Activity {
 
@@ -19,10 +19,6 @@ public class PersonsActivity extends Activity {
 		setContentView(R.layout.activity_persons);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		final Intent parent = NavUtils.getParentActivityIntent(this);
-		parent.putExtra(ActivityConstants.PERSON_YEAR, 2000);
-		parent.putExtra(ActivityConstants.PERSON_MONTH, 1);
-		parent.putExtra(ActivityConstants.PERSON_DAY, 1);
 	}
 
 	/**
@@ -57,6 +53,15 @@ public class PersonsActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void onAddPersonClick(final View view) {
+		final PersonProvider prov = new PersonProvider();
+		if (!prov.isExternalStorageWritable()) {
+			// TODO show error
+			return;
+		}
+
 	}
 
 }
