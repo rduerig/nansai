@@ -1,5 +1,7 @@
 package com.github.nansai.handlers;
 
+import java.util.Calendar;
+
 import org.joda.time.LocalDate;
 
 import android.app.Activity;
@@ -30,7 +32,9 @@ public class OnComputeClickHandler {
 		final int year = datePicker.getYear();
 		final int month = datePicker.getMonth();
 		final int day = datePicker.getDayOfMonth();
-		final LocalDate requestDate = new LocalDate(year, month, day);
+		final Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, day);
+		final LocalDate requestDate = LocalDate.fromCalendarFields(calendar);
 
 		// TODO get person's date
 		final int personYear = act.getIntent().getIntExtra(
