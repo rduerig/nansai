@@ -9,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.nansai.provider.PersonProvider;
+import com.github.nansai.provider.ExternalStorageProvider;
+import com.github.nansai.provider.PersonFileProvider;
 
 public class PersonsActivity extends Activity {
 
@@ -56,11 +57,11 @@ public class PersonsActivity extends Activity {
 	}
 
 	public void onAddPersonClick(final View view) {
-		final PersonProvider prov = new PersonProvider();
-		if (!prov.isExternalStorageWritable()) {
+		if (!ExternalStorageProvider.isExternalStorageWritable()) {
 			// TODO show error
 			return;
 		}
+		final PersonFileProvider prov = new PersonFileProvider();
 
 	}
 

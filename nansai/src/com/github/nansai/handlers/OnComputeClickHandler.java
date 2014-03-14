@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.github.nansai.provider.PersonProvider;
+import com.github.nansai.provider.ExternalStorageProvider;
+import com.github.nansai.provider.PersonFileProvider;
 import com.github.nansai.provider.ViewProvider;
 import com.github.nansai.util.ActivityConstants;
 import com.github.nansai.util.DateDifference;
@@ -22,13 +23,13 @@ public class OnComputeClickHandler {
 
 	private final Activity act;
 	private final ViewProvider prov;
-	private final PersonProvider persons;
+	private final PersonFileProvider persons;
 	private final DateDifferenceCalculator calc;
 
 	public OnComputeClickHandler(final Activity act) {
 		this.act = act;
 		this.prov = new ViewProvider();
-		this.persons = new PersonProvider();
+		this.persons = new PersonFileProvider();
 		calc = new DateDifferenceCalculator();
 	}
 
@@ -71,7 +72,7 @@ public class OnComputeClickHandler {
 
 	private Map<String, LocalDate> extractPersonDates() {
 		final Map<String, LocalDate> result = Maps.newHashMap();
-		if (!persons.isExternalStorageReadable()) {
+		if (!ExternalStorageProvider.isExternalStorageReadable()) {
 			return result;
 		}
 		return result;
