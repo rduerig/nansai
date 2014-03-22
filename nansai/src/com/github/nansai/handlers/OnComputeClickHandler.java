@@ -1,6 +1,5 @@
 package com.github.nansai.handlers;
 
-import java.util.Calendar;
 import java.util.Map;
 
 import org.joda.time.LocalDate;
@@ -17,6 +16,7 @@ import com.github.nansai.util.ActivityConstants;
 import com.github.nansai.util.DateDifference;
 import com.github.nansai.util.DateDifferenceCalculator;
 import com.github.nansai.util.DateDifferenceFormatter;
+import com.github.nansai.util.DateExtractor;
 import com.google.common.collect.Maps;
 
 public class OnComputeClickHandler {
@@ -34,7 +34,9 @@ public class OnComputeClickHandler {
 	}
 
 	public void onComputeClick(final View view) {
-		final LocalDate requestDate = extractRequestDate();
+		final DatePicker datePicker = prov.getDatePicker(act);
+		final LocalDate requestDate = DateExtractor
+				.extractRequestDate(datePicker);
 
 		// TODO get person's date
 		final int personYear = act.getIntent().getIntExtra(
@@ -58,17 +60,6 @@ public class OnComputeClickHandler {
 	}
 
 	// ********************************************************************************
-
-	private LocalDate extractRequestDate() {
-		final DatePicker datePicker = prov.getDatePicker(act);
-		final int year = datePicker.getYear();
-		final int month = datePicker.getMonth();
-		final int day = datePicker.getDayOfMonth();
-		final Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month, day);
-		final LocalDate requestDate = LocalDate.fromCalendarFields(calendar);
-		return requestDate;
-	}
 
 	private Map<String, LocalDate> extractPersonDates() {
 		final Map<String, LocalDate> result = Maps.newHashMap();

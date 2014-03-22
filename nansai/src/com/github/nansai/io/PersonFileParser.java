@@ -1,4 +1,8 @@
-package com.github.nansai.util;
+package com.github.nansai.io;
+
+import static com.github.nansai.io.PersonFileConstants.FIELD_BIRTH;
+import static com.github.nansai.io.PersonFileConstants.FIELD_ID;
+import static com.github.nansai.io.PersonFileConstants.FIELD_NAME;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +20,6 @@ import com.google.common.collect.Lists;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PersonFileParser {
-
-	private static final String FIELD_ID = "id";
-	private static final String FIELD_NAME = "name";
-	private static final String FIELD_BIRTH = "birth";
 
 	private final InputStream personStream;
 

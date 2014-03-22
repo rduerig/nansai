@@ -2,6 +2,7 @@ package com.github.nansai;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -12,6 +13,7 @@ import android.view.View;
 import com.github.nansai.provider.ExternalStorageProvider;
 import com.github.nansai.provider.PersonFileProvider;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PersonsActivity extends Activity {
 
 	@Override
@@ -62,7 +64,10 @@ public class PersonsActivity extends Activity {
 			return;
 		}
 		final PersonFileProvider prov = new PersonFileProvider();
-
+		// TODO show dialog for adding a person
+		// prov.getPersonsFile()
+		final DialogFragment dialog = new AddPersonDialogFragment();
+		dialog.show(getFragmentManager(), "addperson");
 	}
 
 }

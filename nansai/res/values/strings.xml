@@ -10,5 +10,8 @@
     <string name="button_compute">Berechnen</string>
     <string name="text_pleaseClickCompute">Bitte Berechnen drücken.</string>
     <string name="button_addPerson">Neu</string>
+    <string name="person_name">Name</string>
+    <string name="person_ok">OK</string>
+    <string name="person_cancel">Abbrechen</string>
 
 </resources>

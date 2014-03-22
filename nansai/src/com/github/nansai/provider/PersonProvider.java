@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.github.nansai.data.Person;
-import com.github.nansai.util.PersonFileParser;
+import com.github.nansai.io.PersonFileParser;
 import com.github.nansai.util.PersonNameComparator;
 import com.google.common.collect.Lists;
 
@@ -31,6 +31,11 @@ public class PersonProvider {
 			}
 		}
 		return persons;
+	}
+
+	public boolean addPerson(final Person person) {
+		// TODO add person to list and write file
+		return false;
 	}
 
 	// ********************************************************************************

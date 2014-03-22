@@ -12,6 +12,8 @@ public class ViewProvider {
 	public static int DATE_DIFFERENCE_RESULT = R.id.textViewComputed;
 	public static int DATE_PICKER = R.id.datePicker1;
 	public static int SCROLL_VIEW = R.id.scrollView1;
+	public static int PERSON_NAME_VIEW = R.id.person_name;
+	public static int PERSON_BIRTH_VIEW = R.id.person_birth;
 
 	public ViewProvider() {
 	}
@@ -31,6 +33,18 @@ public class ViewProvider {
 	public ScrollView getScrollView(final Activity act) {
 		final ScrollView view = (ScrollView) act.findViewById(SCROLL_VIEW);
 		return view;
+	}
+
+	public TextView getPersonNameView(final Activity act) {
+		final TextView displayResult = (TextView) act
+				.findViewById(PERSON_NAME_VIEW);
+		return displayResult;
+	}
+
+	public DatePicker getPersonBirth(final Activity act) {
+		final DatePicker datePicker = (DatePicker) act
+				.findViewById(PERSON_BIRTH_VIEW);
+		return datePicker;
 	}
 
 }
