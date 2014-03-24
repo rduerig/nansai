@@ -1,5 +1,7 @@
 package com.github.nansai;
 
+import java.util.List;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -9,9 +11,14 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.github.nansai.data.Person;
 import com.github.nansai.provider.ExternalStorageProvider;
 import com.github.nansai.provider.PersonFileProvider;
+import com.github.nansai.provider.PersonProvider;
+import com.github.nansai.provider.ViewProvider;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PersonsActivity extends Activity {
@@ -22,6 +29,17 @@ public class PersonsActivity extends Activity {
 		setContentView(R.layout.activity_persons);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		// fill persons list view
+		final PersonProvider prov = new PersonProvider(new PersonFileProvider());
+		final List<Person> persons = prov.getPersons();
+		final ListView list = new ViewProvider().getPersonsListView(this);
+		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1);
+		for (final Person person : persons) {
+			adapter.add(person.getName());
+		}
+		list.setAdapter(adapter);
 	}
 
 	/**

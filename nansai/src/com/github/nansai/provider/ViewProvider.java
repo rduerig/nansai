@@ -2,6 +2,8 @@ package com.github.nansai.provider;
 
 import android.app.Activity;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -9,11 +11,12 @@ import com.github.nansai.R;
 
 // TODO Exceptions when a certain view could not be found
 public class ViewProvider {
-	public static int DATE_DIFFERENCE_RESULT = R.id.textViewComputed;
-	public static int DATE_PICKER = R.id.datePicker1;
-	public static int SCROLL_VIEW = R.id.scrollView1;
-	public static int PERSON_NAME_VIEW = R.id.person_name;
-	public static int PERSON_BIRTH_VIEW = R.id.person_birth;
+	public static final int DATE_DIFFERENCE_RESULT = R.id.textViewComputed;
+	public static final int DATE_PICKER = R.id.datePicker1;
+	public static final int SCROLL_VIEW = R.id.scrollView1;
+	public static final int PERSON_NAME_VIEW = R.id.person_name;
+	public static final int PERSON_BIRTH_VIEW = R.id.person_birth;
+	public static final int LISTVIEW_PERSONS = R.id.listView1;
 
 	public ViewProvider() {
 	}
@@ -35,8 +38,8 @@ public class ViewProvider {
 		return view;
 	}
 
-	public TextView getPersonNameView(final Activity act) {
-		final TextView displayResult = (TextView) act
+	public EditText getPersonNameView(final Activity act) {
+		final EditText displayResult = (EditText) act
 				.findViewById(PERSON_NAME_VIEW);
 		return displayResult;
 	}
@@ -45,6 +48,11 @@ public class ViewProvider {
 		final DatePicker datePicker = (DatePicker) act
 				.findViewById(PERSON_BIRTH_VIEW);
 		return datePicker;
+	}
+
+	public ListView getPersonsListView(final Activity act) {
+		final ListView listView = (ListView) act.findViewById(LISTVIEW_PERSONS);
+		return listView;
 	}
 
 }

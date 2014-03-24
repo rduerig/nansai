@@ -10,10 +10,15 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.github.nansai.data.Person;
+import com.github.nansai.provider.PersonFileProvider;
+import com.github.nansai.provider.PersonProvider;
 import com.github.nansai.provider.ViewProvider;
 import com.github.nansai.util.DateExtractor;
 
@@ -35,8 +40,10 @@ public class AddPersonDialogFragment extends DialogFragment {
 		final LayoutInflater inflater = getActivity().getLayoutInflater();
 
 		// Inflate and set the layout for the dialog
-		// Pass null as the parent view because its going in the dialog layout
-		builder.setView(inflater.inflate(R.layout.dialog_addperson, null))
+		// Pass null as the parent view because its going in the dialog
+		// layoutview
+		final View view = inflater.inflate(R.layout.dialog_addperson, null);
+		builder.setView(view)
 				// Add action buttons
 				.setPositiveButton(R.string.person_ok,
 						new DialogInterface.OnClickListener() {
@@ -44,10 +51,11 @@ public class AddPersonDialogFragment extends DialogFragment {
 							public void onClick(final DialogInterface dialog,
 									final int id) {
 								// TODO add person
-								final TextView nameView = prov
-										.getPersonNameView(getActivity());
-								final DatePicker birthView = prov
-										.getPersonBirth(getActivity());
+
+								final EditText nameView = (EditText) view
+										.findViewById(R.id.person_name);
+								final DatePicker birthView = (DatePicker) view
+										.findViewById(R.id.person_birth);
 
 								final String name = nameView.getText()
 										.toString();
@@ -55,7 +63,23 @@ public class AddPersonDialogFragment extends DialogFragment {
 										.extractRequestDate(birthView);
 								final String birth = birthDate.toString();
 
-								final Person person = Person.createNew(name, birth);
+								final Person person = Person.createNew(name,
+										birth);
+								final PersonProvider prov = new PersonProvider(
+										new PersonFileProvider());
+								final boolean added = prov.addPerson(person);
+								// TODO update list of persons on success, error
+								// msg otherwise
+								if (added) {
+									final ListView personsView = new ViewProvider()
+											.getPersonsListView(getActivity());
+									final ArrayAdapter<String> adapter = (ArrayAdapter<String>) personsView
+											.getAdapter();
+									adapter.add(person.getName());
+									adapter.notifyDataSetChanged();
+								}
+								AddPersonDialogFragment.this.getDialog()
+										.dismiss();
 							}
 						})
 				.setNegativeButton(R.string.person_cancel,
@@ -68,7 +92,8 @@ public class AddPersonDialogFragment extends DialogFragment {
 							}
 						});
 
-		return builder.create();
+		final AlertDialog dialog = builder.create();
+		return dialog;
 	}
 
 }
