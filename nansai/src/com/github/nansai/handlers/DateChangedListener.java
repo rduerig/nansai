@@ -17,6 +17,7 @@ import com.github.nansai.util.DateDifferenceFormatter;
 import com.github.nansai.util.TimeZoneProvider;
 
 @SuppressLint("NewApi")
+@Deprecated
 public class DateChangedListener extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
 

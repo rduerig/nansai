@@ -1,6 +1,7 @@
 package com.github.nansai.provider;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,6 +40,12 @@ public class ViewProvider {
 	}
 
 	public EditText getPersonNameView(final Activity act) {
+		final EditText displayResult = (EditText) act
+				.findViewById(PERSON_NAME_VIEW);
+		return displayResult;
+	}
+
+	public EditText getPersonNameViewFromView(final View act) {
 		final EditText displayResult = (EditText) act
 				.findViewById(PERSON_NAME_VIEW);
 		return displayResult;

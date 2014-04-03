@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.github.nansai.AddPersonDialogFragment.PersonAddHandler;
 import com.github.nansai.data.Person;
 import com.github.nansai.provider.ExternalStorageProvider;
 import com.github.nansai.provider.PersonFileProvider;
@@ -39,6 +39,7 @@ public class PersonsActivity extends Activity {
 		for (final Person person : persons) {
 			adapter.add(person.getName());
 		}
+
 		list.setAdapter(adapter);
 	}
 
@@ -81,11 +82,18 @@ public class PersonsActivity extends Activity {
 			// TODO show error
 			return;
 		}
-		final PersonFileProvider prov = new PersonFileProvider();
-		// TODO show dialog for adding a person
-		// prov.getPersonsFile()
-		final DialogFragment dialog = new AddPersonDialogFragment();
+		final AddPersonDialogFragment dialog = new AddPersonDialogFragment();
+		final PersonAddHandler handler = new PersonAddHandler() {
+
+			@Override
+			public void onPersonAdded(final Person p) {
+				// TODO manipulate persons list view
+
+			}
+		};
+		dialog.setPersonAddHandler(handler);
 		dialog.show(getFragmentManager(), "addperson");
+		// TODO should onPositiveButtonClick be set here for the dialog?
 	}
 
 }
