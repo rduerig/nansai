@@ -11,25 +11,31 @@ import android.util.JsonWriter;
 
 import com.github.nansai.data.Person;
 import com.google.common.base.Charsets;
+import com.google.common.io.Closeables;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PersonFileWriter {
 
-	private final OutputStream personStream;
-
-	public PersonFileWriter(final OutputStream personStream) {
-		this.personStream = personStream;
-	}
-
-	public void write(final List<Person> persons) throws IOException {
+	public boolean write(final List<Person> persons,
+			final OutputStream personStream) {
 		final OutputStreamWriter ouw = new OutputStreamWriter(personStream,
 				Charsets.UTF_8);
 		final JsonWriter writer = new JsonWriter(ouw);
-		writer.beginArray();
-		for (final Person person : persons) {
-			writePerson(person, writer);
+		try {
+			writer.beginArray();
+			for (final Person person : persons) {
+				writePerson(person, writer);
+			}
+			writer.endArray();
+			writer.close();
+			return true;
+		} catch (final IOException e) {
+			Closeables.closeQuietly(writer);
+		} finally {
+			Closeables.closeQuietly(writer);
 		}
-		writer.endArray();
+
+		return false;
 	}
 
 	// ********************************************************************************

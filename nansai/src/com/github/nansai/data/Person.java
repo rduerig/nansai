@@ -2,6 +2,8 @@ package com.github.nansai.data;
 
 import java.util.UUID;
 
+import com.google.common.base.Objects;
+
 public class Person {
 
 	private final String id;
@@ -19,8 +21,10 @@ public class Person {
 	 * automatically generated.
 	 * 
 	 * @param name
+	 *            the person's name
 	 * @param birth
-	 * @return
+	 *            the person's birth
+	 * @return the newly created person
 	 */
 	public static Person createNew(final String name, final String birth) {
 		final String id = UUID.randomUUID().toString();
@@ -32,36 +36,61 @@ public class Person {
 	 * person. Only the new person's id is generated.
 	 * 
 	 * @param person
-	 * @return
+	 *            the person to copy
+	 * @return the newly created person
 	 */
 	public static Person createNewFromPerson(final Person person) {
 		final String id = UUID.randomUUID().toString();
 		return new Person(id, person.getName(), person.getBirth());
 	}
 
+	/**
+	 * Creates a new person using the name and the birth date of the given
+	 * person. The newly created person will also have the given id.
+	 * 
+	 * @param id
+	 *            the person's id
+	 * @param name
+	 *            the person's name
+	 * @param birth
+	 *            the person's birth
+	 * @return the newly created person
+	 */
 	public static Person create(final String id, final String name,
 			final String birth) {
 		return new Person(id, name, birth);
 	}
 
+	/**
+	 * Returns the person's id.
+	 * 
+	 * @return the person's id
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * Returns the person's name.
+	 * 
+	 * @return the person's name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns the person's birth.
+	 * 
+	 * @return the person's birth
+	 */
 	public String getBirth() {
 		return birth;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return Objects.hashCode(id);
 	}
 
 	@Override

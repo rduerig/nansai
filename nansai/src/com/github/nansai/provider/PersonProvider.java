@@ -2,6 +2,7 @@ package com.github.nansai.provider;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import com.github.nansai.io.PersonFileWriter;
 import com.github.nansai.util.PersonNameComparator;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.common.io.Closeables;
 
 public class PersonProvider {
 
@@ -27,12 +29,7 @@ public class PersonProvider {
 
 	public List<Person> getPersons() {
 		if (null == persons) {
-			try {
-				persons = initPersons(fileProv);
-			} catch (final IOException e) {
-				// TODO error msg
-				persons = Lists.newArrayList();
-			}
+			persons = initPersons(fileProv);
 		}
 		return persons;
 	}
@@ -51,30 +48,56 @@ public class PersonProvider {
 
 	// ********************************************************************************
 
-	private List<Person> initPersons(final PersonFileProvider fileProv)
-			throws IOException {
+	private List<Person> initPersons(final PersonFileProvider fileProv) {
+		List<Person> result = Lists.newArrayList();
 		final File file = fileProv.getPersonsFile();
-		final InputStream in = new FileInputStream(file);
-		final PersonFileParser parser = new PersonFileParser(in);
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			final PersonFileParser parser = new PersonFileParser();
+			result = parser.parse(in);
+			in.close();
+			Collections.sort(result, PersonNameComparator.ordering);
+			return result;
+		} catch (final FileNotFoundException e) {
+			if (null != in) {
+				Closeables.closeQuietly(in);
+			}
+		} catch (final IOException e) {
+			if (null != in) {
+				Closeables.closeQuietly(in);
+			}
+		} finally {
+			if (null != in) {
+				Closeables.closeQuietly(in);
+			}
+		}
 
-		final List<Person> result = parser.parse();
-		Collections.sort(persons, PersonNameComparator.ordering);
 		return result;
+
 	}
 
 	private boolean writePerson(final Person person) {
 		final File file = fileProv.getPersonsFile();
+		OutputStream out = null;
 		try {
-			final OutputStream out = new FileOutputStream(file);
-			final PersonFileWriter writer = new PersonFileWriter(out);
+			out = new FileOutputStream(file);
+			final PersonFileWriter writer = new PersonFileWriter();
 			final List<Person> tmpPersons = Lists.newArrayList(getPersons());
-			writer.write(tmpPersons);
+			tmpPersons.add(person);
+			writer.write(tmpPersons, out);
+			out.close();
+			return true;
 		} catch (final IOException e) {
-			// TODO error msg
-			return false;
+			if (null != out) {
+				Closeables.closeQuietly(out);
+			}
+		} finally {
+			if (null != out) {
+				Closeables.closeQuietly(out);
+			}
 		}
-
-		return true;
+		return false;
 
 	}
 

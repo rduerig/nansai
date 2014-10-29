@@ -17,30 +17,32 @@ import com.github.nansai.data.Person;
 import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
+import com.google.common.io.Closeables;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class PersonFileParser {
 
-	private final InputStream personStream;
-
-	public PersonFileParser(final InputStream personStream) {
-		this.personStream = personStream;
-	}
-
-	public List<Person> parse() throws IOException {
+	public List<Person> parse(final InputStream personStream) {
 		final List<Person> result = Lists.newArrayList();
 
 		final InputStreamReader inr = new InputStreamReader(personStream,
 				Charsets.UTF_8);
 		final JsonReader reader = new JsonReader(inr);
-		reader.beginArray();
-		while (reader.hasNext()) {
-			final Optional<Person> person = readPerson(reader);
-			if (person.isPresent()) {
-				result.add(person.get());
+		try {
+			reader.beginArray();
+			while (reader.hasNext()) {
+				final Optional<Person> person = readPerson(reader);
+				if (person.isPresent()) {
+					result.add(person.get());
+				}
 			}
+			reader.endArray();
+			reader.close();
+		} catch (final IOException e) {
+			Closeables.closeQuietly(reader);
+		} finally {
+			Closeables.closeQuietly(reader);
 		}
-		reader.endArray();
 
 		return result;
 	}
@@ -50,6 +52,7 @@ public class PersonFileParser {
 		String id = null;
 		String name = null;
 		String birth = null;
+		reader.beginObject();
 		while (reader.hasNext()) {
 			final String field = reader.nextName();
 			if (FIELD_ID.equalsIgnoreCase(field)) {

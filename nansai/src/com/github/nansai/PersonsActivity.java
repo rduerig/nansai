@@ -88,6 +88,9 @@ public class PersonsActivity extends Activity {
 			@Override
 			public void onPersonAdded(final Person p) {
 				// TODO manipulate persons list view
+				// final PersonProvider provider = new PersonProvider(
+				// new PersonFileProvider());
+				// provider.addPerson(p);
 
 			}
 		};
